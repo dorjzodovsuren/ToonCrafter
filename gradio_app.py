@@ -12,8 +12,10 @@ i2v_examples_interp_512 = [
     ['prompts/512_interp/Japan_v2_3_119235_s2_frame1.png', 'an anime scene', 50, 7.5, 1.0, 10, 123, 'prompts/512_interp/Japan_v2_3_119235_s2_frame3.png'],
 ]
 
-
-
+@spaces.GPU
+def image2video():
+    return Image2Video(result_dir='./tmp/', resolution=512)
+    
 def dynamicrafter_demo(result_dir='./tmp/', res=512):
     if res == 1024:
         resolution = '576_1024'
@@ -26,13 +28,7 @@ def dynamicrafter_demo(result_dir='./tmp/', res=512):
         css = """#input_img {max-width: 256px !important} #output_vid {max-width: 256px; max-height: 256px}"""
     else:
         raise NotImplementedError(f"Unsupported resolution: {res}")
-        
-    @spaces.GPU(duration=30, queue=False)
-    image2video = Image2Video(result_dir, resolution=resolution)
     with gr.Blocks(analytics_enabled=False, css=css) as dynamicrafter_iface:
-
-
-
         with gr.Tab(label='ToonCrafter_320x512'):
             with gr.Column():
                 with gr.Row():
