@@ -1,6 +1,7 @@
 import os, argparse
 import sys
 import gradio as gr
+import spaces
 from scripts.gradio.i2v_test_application import Image2Video
 sys.path.insert(1, os.path.join(sys.path[0], 'lvdm'))
 
@@ -13,7 +14,7 @@ i2v_examples_interp_512 = [
 
 
 
-
+@spaces.GPU(duration=30, queue=False)
 def dynamicrafter_demo(result_dir='./tmp/', res=512):
     if res == 1024:
         resolution = '576_1024'
