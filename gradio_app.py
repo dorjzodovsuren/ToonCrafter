@@ -171,8 +171,8 @@ def dynamicrafter_demo(result_dir='./tmp/', res=512):
         css = """#input_img {max-width: 256px !important} #output_vid {max-width: 256px; max-height: 256px}"""
     else:
         raise NotImplementedError(f"Unsupported resolution: {res}")
-    image2video = Image2Video(result_dir, resolution=resolution)
     with gr.Blocks(analytics_enabled=False, css=css) as dynamicrafter_iface:
+        image2video = Image2Video(result_dir, resolution=resolution)
         with gr.Tab(label='ToonCrafter_320x512'):
             with gr.Column():
                 with gr.Row():
