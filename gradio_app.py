@@ -14,7 +14,6 @@ i2v_examples_interp_512 = [
 
 
 
-@spaces.GPU(duration=30, queue=False)
 def dynamicrafter_demo(result_dir='./tmp/', res=512):
     if res == 1024:
         resolution = '576_1024'
@@ -27,6 +26,8 @@ def dynamicrafter_demo(result_dir='./tmp/', res=512):
         css = """#input_img {max-width: 256px !important} #output_vid {max-width: 256px; max-height: 256px}"""
     else:
         raise NotImplementedError(f"Unsupported resolution: {res}")
+        
+    @spaces.GPU(duration=30, queue=False)
     image2video = Image2Video(result_dir, resolution=resolution)
     with gr.Blocks(analytics_enabled=False, css=css) as dynamicrafter_iface:
 
