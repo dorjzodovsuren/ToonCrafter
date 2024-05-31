@@ -2,6 +2,7 @@ import os
 import time
 from omegaconf import OmegaConf
 import torch
+import spaces
 from scripts.evaluation.funcs import load_model_checkpoint, save_videos, batch_ddim_sampling, get_latent_z
 from utils.utils import instantiate_from_config
 from huggingface_hub import hf_hub_download
@@ -10,6 +11,7 @@ import torchvision.transforms as transforms
 from pytorch_lightning import seed_everything
 from einops import rearrange
 
+@spaces.GPU
 class Image2Video():
     def __init__(self,result_dir='./tmp/',gpu_num=1,resolution='256_256') -> None:
         self.resolution = (int(resolution.split('_')[0]), int(resolution.split('_')[1])) #hw
