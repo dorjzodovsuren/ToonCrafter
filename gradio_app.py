@@ -1,7 +1,6 @@
 import os, argparse
 import sys
 import gradio as gr
-import spaces
 from scripts.gradio.i2v_test_application import Image2Video
 sys.path.insert(1, os.path.join(sys.path[0], 'lvdm'))
 
@@ -12,17 +11,8 @@ i2v_examples_interp_512 = [
     ['prompts/512_interp/Japan_v2_3_119235_s2_frame1.png', 'an anime scene', 50, 7.5, 1.0, 10, 123, 'prompts/512_interp/Japan_v2_3_119235_s2_frame3.png'],
 ]
 
-import os
-import time
-from omegaconf import OmegaConf
-import torch
-from scripts.evaluation.funcs import load_model_checkpoint, save_videos, batch_ddim_sampling, get_latent_z
-from utils.utils import instantiate_from_config
-from huggingface_hub import hf_hub_download
-from einops import repeat
-import torchvision.transforms as transforms
-from pytorch_lightning import seed_everything
-from einops import rearrange
+
+
 
 def dynamicrafter_demo(result_dir='./tmp/', res=512):
     if res == 1024:
@@ -36,9 +26,11 @@ def dynamicrafter_demo(result_dir='./tmp/', res=512):
         css = """#input_img {max-width: 256px !important} #output_vid {max-width: 256px; max-height: 256px}"""
     else:
         raise NotImplementedError(f"Unsupported resolution: {res}")
+    image2video = Image2Video(result_dir, resolution=resolution)
     with gr.Blocks(analytics_enabled=False, css=css) as dynamicrafter_iface:
-        #image2video = Image2Video(result_dir, resolution=resolution)
-        image2video = Image2Video('./results', resolution='320_512')
+
+
+
         with gr.Tab(label='ToonCrafter_320x512'):
             with gr.Column():
                 with gr.Row():
